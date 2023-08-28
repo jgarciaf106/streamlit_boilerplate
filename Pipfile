@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+streamlit = "*"
+streamlit-extras = ">=0.3.0"
+pandas = ">=1.5.3"
+plotly = ">=5.7.0"
+watchdog = ">=2.2.1"
+snowflake-connector-python = ">=2.4.1"
+sqlalchemy = ">=1.4.23"
+numpy = "*"
+snowflake-snowpark-python = "*"
+pip = "*"
+snowflake-sqlalchemy = "*"
+pyarrow = "<10.1.0,>=10.0.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
+
+[scripts]
+init="pipenv install"
+start="pipenv run streamlit run main.py"
+clean="pipenv --rm"
+view="python utils/create_view.py"
+
+

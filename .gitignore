@@ -1,0 +1,12 @@
+# Ignore all files starting with a dot (.)
+.*
+
+# Ignore Pipfile.lock
+Pipfile.lock
+
+# Track these files (i.e., do NOT ignore them)
+!.gitignore
+!.github
+!README.md
+
+# Add any other rules as needed
