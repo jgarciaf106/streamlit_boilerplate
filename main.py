@@ -1,10 +1,6 @@
 import streamlit as st
 from app.utils.view_handler import ViewHandler
-from app.views import landing
-
-# ---------------------------------
-# --- modify only section start ---
-# ---------------------------------
+from app.views import home
 
 ### config the whole app
 st.set_page_config(
@@ -14,13 +10,18 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-### Add views to be run on the app
-view = ViewHandler()
-view.add_view('Home', landing.render)
+hide_st_footer = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_footer, unsafe_allow_html=True)
 
-# ---------------------------------
-# --- modify only section end ---
-# ---------------------------------
+### register view is done via pipenv run view command
+view = ViewHandler()
+view.add_view('Home', home.render)
 
 # *** entry point do not modify ***
 def main():
