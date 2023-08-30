@@ -1,6 +1,11 @@
 import subprocess
 import configparser
 
+# Update the .gitignore file to ignore the utils folder
+with open('.gitignore', 'a') as gitignore:
+    gitignore.write('\n# Ignore utils folder\nutils/')
+print("utils/ folder has been added to .gitignore.")
+
 # Define the configuration details
 config_data = {
     'deploy': {

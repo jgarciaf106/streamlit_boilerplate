@@ -10,6 +10,13 @@ A Streamlit boilerplate project for kickstarting your data-driven web applicatio
 ## Features
 - Multipage App 
 - Create new views easily.
+- Pipenv commands:
+    - init: initialize your app project
+    - view: create and register new views on the app.
+    - start: launch locally your app.
+    - deploy: launch streamlit portal with the app details for easy app deployment.
+    - deps: keep your app depencies always up to date.
+    - clean: troubleshooting and virtual env reset.    
 
 ## Installation
 
