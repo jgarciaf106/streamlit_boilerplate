@@ -23,7 +23,7 @@ A Streamlit boilerplate project for kickstarting your data-driven web applicatio
 Clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/andresgarcia106/streamlit_boilerplate.git your-repo-name &&
+git clone https://github.com/andresgarcia106/streamlit_boilerplate.git your-app-name &&
 cd your-repo-name && 
 pipenv run init
 ```
