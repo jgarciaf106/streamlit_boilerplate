@@ -24,7 +24,7 @@ Clone the repository and install the dependencies:
 
 ```bash
 git clone https://github.com/andresgarcia106/streamlit_boilerplate.git your-app-name &&
-cd your-repo-name && 
+cd your-app-name && 
 pipenv run init
 ```
 
