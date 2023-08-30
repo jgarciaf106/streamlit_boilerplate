@@ -17,7 +17,7 @@ hide_st_footer = """
             header {visibility: hidden;}
             </style>
             """
-st.markdown(hide_st_footer, unsafe_allow_html=True)
+#st.markdown(hide_st_footer, unsafe_allow_html=True)
 
 ### register view is done via pipenv run view command
 view = ViewHandler()

@@ -16,8 +16,8 @@ A Streamlit boilerplate project for kickstarting your data-driven web applicatio
 Clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/andresgarcia106/streamlit_boilerplate.git your-repo-name
-cd your-repo-name
+git clone https://github.com/andresgarcia106/streamlit_boilerplate.git your-repo-name &&
+cd your-repo-name && 
 pipenv run init
 ```
 
@@ -30,12 +30,44 @@ pipenv run view
 
 This command will prompt for the view name and will create a view inside app/views/ with a boilerplate code and register the new view under the main app, just need to add your streamlit code inside the content function.
 
-### Run the app
+## Testing
 ```bash
 pipenv run start
 ```
-This command will launch your application locally.
+This command will launch your application locally, so you can test your application.
 
-# Streamlit deployment
+## Deployment
 - Push changes to your github repository.
-- When deploying in streamlit use main.py as entrypoint.
+
+```bash
+pipenv run deploy
+```
+
+This command will launch streamlit deploy page with the required details to start deploying your app.
+Make sure you update the config.ini in your root directory with the following details.
+
+```ini
+[deploy]
+repo_user=github_username
+repo_name=github_repository_name
+repo_branch=deploying_brach
+entry_point=.py_file_entry_point
+```
+
+#### Streamlit Config
+
+For custom settings deployment, update the config.toml file in the directory .streamlit.
+For additional details review the Streamlit documentation.
+[![made-with-streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://docs.streamlit.io/library/advanced-features/configuration)
+
+
+Notes:
+- You might get prompt to login into streamlit cloud and authorization prompts from github.
+- You'll need to manually update the "App URL (Optional)" with your app url name.
+
+## Troubleshooting
+
+```bash
+pipenv run clean
+```
+This command will remove the virtual enviroment and the Pipfile.lock and will serve as troubleshooting if you encounter any issues in your app.

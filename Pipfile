@@ -24,8 +24,10 @@ pipfile = "*"
 python_version = "3.9"
 
 [scripts]
-init="pipenv install"
 start="pipenv run streamlit run main.py"
-clean="pipenv --rm"
+clean="python utils/clean_prj.py"
+init="python utils/init.py"
 view="python utils/create_view.py"
 deps="python utils/update_deps.py"
+deploy="python utils/deploy_app.py"
+
