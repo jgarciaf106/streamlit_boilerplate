@@ -78,3 +78,16 @@ Notes:
 pipenv run clean
 ```
 This command will remove the virtual enviroment and the Pipfile.lock and will serve as troubleshooting if you encounter any issues in your app.
+
+## Build docker image
+```bash
+pipenv run dockerize
+```
+
+This command will will ask for image name and tag name to create the docker image
+
+
+## Run from docker image 
+```bash
+pipenv run image
+```

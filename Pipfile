@@ -30,4 +30,7 @@ init="python utils/init.py"
 view="python utils/create_view.py"
 deps="python utils/update_deps.py"
 deploy="python utils/deploy_app.py"
+dockerize="python utils/dockerize.py"
+image="python utils/image.py"
+
 
