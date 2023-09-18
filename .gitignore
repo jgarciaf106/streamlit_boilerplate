@@ -11,3 +11,4 @@ Pipfile.lock
 !.streamlit
 
 # Add any other rules as needed
+db/
