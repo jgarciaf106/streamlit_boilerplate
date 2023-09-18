@@ -23,6 +23,7 @@ boto3 = "*"
 pyjwt = "*"
 streamlit-option-menu = "*"
 streamlit-javascript = "*"
+py-scdb = "*"
 
 [dev-packages]
 

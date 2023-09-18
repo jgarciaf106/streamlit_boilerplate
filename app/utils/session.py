@@ -4,7 +4,7 @@ import time
 import streamlit as st
 import jwt
 from snowflake.snowpark import Session
-from streamlit_javascript import st_javascript
+from py_scdb import Store
 from datetime import datetime, timedelta
 
 
@@ -14,6 +14,16 @@ class SnowflakeSession:
         self.secret = st.secrets.jwt_key
         self.snowflake_credentials = None
         self.snowflake_session = None
+        
+        self.store = Store(
+            store_path="db", 
+            max_keys=1000000, 
+            redundant_blocks=1, 
+            pool_capacity=10, 
+            compaction_interval=1800,
+            is_search_enabled=True,
+            
+        )
 
     def __set_to_local_storage(self, value, ttl):
         expiry_time = datetime.now() + timedelta(seconds=ttl)
@@ -25,31 +35,25 @@ class SnowflakeSession:
         cookie_data_json = json.dumps(cookie_data)
 
         # Run the JavaScript code on the page
-        st_javascript(
-            f"localStorage.setItem('{self.key}', '{cookie_data_json}');", key="set"
-        )
+        self.store.set(self.key, cookie_data_json)
 
     def __get_from_local_storage(self):
-        # Run the JavaScript code on the page
-        json_data = st_javascript(
-            f"JSON.parse(localStorage.getItem('{self.key}'));", key="get"
-        )
-        time.sleep(0.3)
         
-        print("get_from_local_storage", json_data)
-        
+        json_data = self.store.get(self.key)
+
         if not json_data:
-            print("No data found in local storage")
             return {}
 
         current_datetime = datetime.now()
         now = int(current_datetime.timestamp())
+        
+        # parse the JSON string to a Python dictionary
+        json_data = json.loads(json_data)
 
         if now > json_data["expiry"]:
-            print("Data has expired")
-            st_javascript(f"localStorage.removeItem('{self.key}');", key="remove")
+            self.store.delete(self.key)
             return {}
-        print("Data found in local storage")
+        
         return json_data["value"]
 
     def __encode_jwt(self, value, ttl):
@@ -81,7 +85,7 @@ class SnowflakeSession:
                 "schema": decoded_payload.get("schema"),
                 "warehouse": decoded_payload.get("warehouse"),
             }
-            
+
             return read_credentials
         except jwt.ExpiredSignatureError:
             st.write("Token has expired.")

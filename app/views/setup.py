@@ -30,8 +30,6 @@ def content():
                 cache_schema,
                 cache_warehouse,
             ) = existing_credentials.values()
-            
-            print(existing_credentials)
 
             # Define the form fields
             snowflake_credentials = {
