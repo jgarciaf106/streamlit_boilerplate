@@ -14,7 +14,7 @@ class ViewHandler:
     def view_selected(self, title, view_names, icons=None):
         with st.sidebar:
             # Create buttons for each view
-            st.image("app/assets/hakkoda_logo.png")
+            st.image("app/assets/logo.png")
             
             default_index_val = st.session_state.get('view_idx', view_names[0])
             default_index = view_names.index(default_index_val)

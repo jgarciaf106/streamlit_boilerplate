@@ -22,6 +22,7 @@ tomli-w = "*"
 boto3 = "*"
 pyjwt = "*"
 streamlit-option-menu = "*"
+streamlit-javascript = "*"
 
 [dev-packages]
 
@@ -37,5 +38,3 @@ deps="python utils/update_deps.py"
 deploy="python utils/deploy_app.py"
 dockerize="python utils/dockerize.py"
 image="python utils/image.py"
-
-
