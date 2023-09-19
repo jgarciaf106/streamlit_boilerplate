@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
+from .store import store
 
 
 class ViewHandler:
@@ -27,6 +28,20 @@ class ViewHandler:
                 default_index=default_index,
                 key='view_idx'
             )
+            # TODO: show the information on the info box
+            if bool(store.get("log_status")):
+                st.divider()
+                
+                st.info("""
+                        ROLE: {0}  
+                        
+                        DATABASE: {1}
+                        
+                        SCHEMA: {2}
+                        
+                        WAREHOUSE: {3}
+                        
+                        """.format(1,2,3,4))
             
         return selected
 
@@ -46,7 +61,7 @@ class ViewHandler:
         selected_view = self.view_selected(
             title="Navigation",
             view_names=self.view_names,
-            icons=["house", "gear", "file-plus"],
+            icons=["house", "gear", "power"],
         )
         
         st.experimental_set_query_params(view=selected_view)

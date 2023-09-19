@@ -1,6 +1,9 @@
 import streamlit as st
 from app.utils.view_handler import ViewHandler
-from app.views import home, setup
+from app.views import home, settings, logout
+from app.utils import snow_session
+from app.utils.store import store
+
 
 ### config the whole app
 st.set_page_config(
@@ -25,7 +28,12 @@ st.markdown(hide_st_footer, unsafe_allow_html=True)
 ### register view is done via pipenv run view command
 view = ViewHandler()
 view.add_view('Home', home.render)
-view.add_view("Settings", setup.render)
+view.add_view("Settings", settings.render)
+
+
+# add logout button if credentials are set
+if bool(store.get("log_status")):
+    view.add_view('Logout', logout.render)
 
 # *** entry point do not modify ***
 def main():

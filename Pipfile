@@ -24,6 +24,7 @@ pyjwt = "*"
 streamlit-option-menu = "*"
 streamlit-javascript = "*"
 py-scdb = "*"
+streamlit-autorefresh = "*"
 
 [dev-packages]
 

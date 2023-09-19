@@ -4,8 +4,8 @@ import time
 import streamlit as st
 import jwt
 from snowflake.snowpark import Session
-from py_scdb import Store
 from datetime import datetime, timedelta
+from .store import store
 
 
 class SnowflakeSession:
@@ -15,15 +15,6 @@ class SnowflakeSession:
         self.snowflake_credentials = None
         self.snowflake_session = None
         
-        self.store = Store(
-            store_path="db", 
-            max_keys=1000000, 
-            redundant_blocks=1, 
-            pool_capacity=10, 
-            compaction_interval=1800,
-            is_search_enabled=True,
-            
-        )
 
     def __set_to_local_storage(self, value, ttl):
         expiry_time = datetime.now() + timedelta(seconds=ttl)
@@ -34,12 +25,12 @@ class SnowflakeSession:
         # Convert the dictionary to a JSON string
         cookie_data_json = json.dumps(cookie_data)
 
-        # Run the JavaScript code on the page
-        self.store.set(self.key, cookie_data_json)
+        # store on local store
+        store.set(self.key, cookie_data_json)
 
     def __get_from_local_storage(self):
         
-        json_data = self.store.get(self.key)
+        json_data = store.get(self.key)
 
         if not json_data:
             return {}
@@ -51,7 +42,7 @@ class SnowflakeSession:
         json_data = json.loads(json_data)
 
         if now > json_data["expiry"]:
-            self.store.delete(self.key)
+            store.delete(self.key)
             return {}
         
         return json_data["value"]
@@ -101,11 +92,13 @@ class SnowflakeSession:
             # Create a session object
             with st.spinner("Testing Connection..."):
                 snow = Session.builder.configs(snowflake_credentials).create()
+                
                 # test connection
                 res = snow.sql("Select current_account();").collect()
 
                 if res[0][0].lower() == snowflake_credentials["account"].split(".")[0]:
                     self.__encode_jwt(snowflake_credentials, 3600)
+                    store.set("log_status", "True")
                     status = True
 
         except Exception as e:
@@ -117,7 +110,24 @@ class SnowflakeSession:
         get_credentials = self.__decode_jwt()
         return get_credentials
 
+    def set_context(self, credential_update):
+        snowflake_credentials = self.get_credentials()
+        
+        # get the key and value from the credential_update
+        for key, value in credential_update.items():
+            # update the value of the key
+            snowflake_credentials[key] = value
+        
+        print("from set context: ", snowflake_credentials)
+        
+        self.__encode_jwt(snowflake_credentials, 3600)
+    
     def snowpark_session(self):
         get_credentials = self.__decode_jwt()
         snow = Session.builder.configs(get_credentials).create()
         return snow
+    
+    def close_session(self):
+        store.delete(self.key)
+        store.delete("log_status")
+        return True
