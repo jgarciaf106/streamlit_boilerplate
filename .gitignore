@@ -12,3 +12,4 @@ Pipfile.lock
 
 # Add any other rules as needed
 db/
+.streamlit/.secret.toml
