@@ -31,3 +31,31 @@ with open("config.ini", "w") as configfile:
     config.write(configfile)
 
 print("Configuration file 'config.ini' has been created.")
+
+# create .streamlit folder and  streamlite files
+try:
+    subprocess.run(["mkdir", ".streamlit"])
+    # create config.toml file
+    with open(".streamlit/config.toml", "w") as configfile:
+        configfile.write(
+            """[theme]
+                base="dark"
+                primaryColor="#F63366"
+                backgroundColor="#FFFFFF"
+                secondaryBackgroundColor="#F0F2F6"
+                textColor="#262730"
+                font="sans serif"
+            """)
+        
+    print("Configuration file '.streamlit/config.toml' has been created.")
+
+    # create .streamlit/secrets.toml file
+    with open(".streamlit/secrets.toml", "w") as configfile:
+        configfile.write('jwt_key = "123456"')
+
+    print("Configuration file '.streamlit/secrets.toml' has been created.")
+        
+except subprocess.CalledProcessError:
+    print("Error: mkdir .streamlit command failed.")
+    exit(1)
+    

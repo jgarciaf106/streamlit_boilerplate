@@ -1,8 +1,8 @@
 import streamlit as st
-from app.utils.view_handler import ViewHandler
+from app.core.view_handler import ViewHandler
 from app.views import home, settings, logout
-from app.utils import snow_session
-from app.utils.store import store
+from app.core import snow_session
+from app.core.store import store
 
 logo = "app/assets/logo.png"
 

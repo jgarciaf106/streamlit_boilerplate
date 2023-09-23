@@ -1,4 +1,4 @@
-from app.utils import snow_session
+from app.core import snow_session
 
 
 class SnowContext:

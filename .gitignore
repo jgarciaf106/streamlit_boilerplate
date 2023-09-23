@@ -8,8 +8,7 @@ Pipfile.lock
 !.gitignore
 !.github
 !README.md
-!.streamlit
 
 # Add any other rules as needed
 db/
-.streamlit/secrets.toml
+.streamlit

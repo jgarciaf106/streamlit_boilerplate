@@ -1,9 +1,9 @@
 import streamlit as st
 import time
-from app.utils.page import Page
-from app.utils import snow_session
-from app.utils.store import store
-from app.utils.snow_context import SnowContext
+from app.core.page import Page
+from app.core import snow_session
+from app.core.store import store
+from app.core.snow_context import SnowContext
 
 
 # define the content of the view and render it inside the content function

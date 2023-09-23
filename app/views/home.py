@@ -1,5 +1,5 @@
 import streamlit as st
-from app.utils.page import Page
+from app.core.page import Page
 
 
 # define the content of the view and render it inside the content function

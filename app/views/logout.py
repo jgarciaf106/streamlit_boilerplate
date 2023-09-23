@@ -1,7 +1,7 @@
 import streamlit as st
 import time
-from app.utils.page import Page
-from app.utils import snow_session
+from app.core.page import Page
+from app.core import snow_session
 from streamlit_javascript import st_javascript
 
 
