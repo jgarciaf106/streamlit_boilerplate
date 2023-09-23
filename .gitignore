@@ -8,6 +8,9 @@ Pipfile.lock
 !.gitignore
 !.github
 !README.md
+!.dockerignore
+!.gitpod.Dockerfile
+!gitpod.yml
 
 # Add any other rules as needed
 db/
