@@ -10,5 +10,5 @@ Here we are tracking the previous and upcoming changes (roadmap), pull request t
 - [ ] Implement current context as information for the user.
 - [ ] Review and make documentation more understendable.
 - [ ] Think on an easy integration with Snowflake Streamlit Deployment.
-- [ ] Test gipod implementation for quick development on the web.
+- [ ] Test-enhance-fix gipod implementation for quick development on the web.
 
