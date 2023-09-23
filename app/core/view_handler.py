@@ -1,10 +1,11 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 from .store import store
+from typing import List, Dict, Union, Any
 
 
 class ViewHandler:
-    def __init__(self, views, logo):
+    def __init__(self, views: List[Dict[str, Any]], logo: Union[str, bytes]) -> None:
         self.views = (
             [view for view in views if view["title"] != "Logout"]
             if not bool(store.get("log_status"))
@@ -18,7 +19,9 @@ class ViewHandler:
         self.view_icons = [view["icon"] for view in views]
         self.logo = logo
 
-    def view_selected(self, title, view_names, icons=None):
+    def view_selected(
+        self, title: str, view_names: List[str], icons: List[str] = None
+    ) -> str:
         with st.sidebar:
             # Create buttons for each view
             st.image(self.logo)
@@ -36,11 +39,11 @@ class ViewHandler:
                 default_index=default_index,
                 key="view_idx",
             )
-            
+
             if selected == "Logout":
                 selected = view_names[0]
-                
-            # TODO: show the information on the info box
+
+            # Show the information on the info box
             if bool(store.get("log_status")):
                 st.divider()
 
@@ -60,7 +63,7 @@ class ViewHandler:
                 )
         return selected
 
-    def run(self):
+    def run(self) -> None:
         # get query_params
         query_params = st.experimental_get_query_params()
         choice = query_params["view"][0] if "view" in query_params else None
@@ -85,6 +88,3 @@ class ViewHandler:
         for view in self.views:
             if view["title"] == selected_view:
                 view["function"]()
-
-
-        #TODO FIx logout

@@ -4,6 +4,7 @@ Here we are tracking the previous and upcoming changes (roadmap), pull request t
 
 ## Roadmap
 
+- [ ] Code refactor to improve performance.
 - [ ] Enhance login and credential setting (update current session, retest based on new context etc.)
 - [ ] Enhance set application context more dynamic (Role, Database, Schema, Warehouse).
 - [ ] Enhance logout/close session.
