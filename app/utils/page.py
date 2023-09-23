@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 class Page:
     def __init__(self, name, view_content, **kwargs):
         self.name = name

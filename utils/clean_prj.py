@@ -8,7 +8,11 @@ home_directory = os.path.expanduser("~")
 pipenv_envs_directory = os.path.join(home_directory, ".local/share/virtualenvs")
 
 if os.path.exists(pipenv_envs_directory) and os.path.isdir(pipenv_envs_directory):
-    virtual_envs = [d for d in os.listdir(pipenv_envs_directory) if os.path.isdir(os.path.join(pipenv_envs_directory, d))]
+    virtual_envs = [
+        d
+        for d in os.listdir(pipenv_envs_directory)
+        if os.path.isdir(os.path.join(pipenv_envs_directory, d))
+    ]
 
     if virtual_envs:
         print("Removing Pipenv virtual environments:")
@@ -27,6 +31,3 @@ else:
 
 # remove Pipfile.lock file from root directory
 os.remove("Pipfile.lock")
-
-
-

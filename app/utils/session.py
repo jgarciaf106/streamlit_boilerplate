@@ -14,7 +14,6 @@ class SnowflakeSession:
         self.secret = st.secrets.jwt_key
         self.snowflake_credentials = None
         self.snowflake_session = None
-        
 
     def __set_to_local_storage(self, value, ttl):
         expiry_time = datetime.now() + timedelta(seconds=ttl)
@@ -29,7 +28,6 @@ class SnowflakeSession:
         store.set(self.key, cookie_data_json)
 
     def __get_from_local_storage(self):
-        
         json_data = store.get(self.key)
 
         if not json_data:
@@ -37,14 +35,14 @@ class SnowflakeSession:
 
         current_datetime = datetime.now()
         now = int(current_datetime.timestamp())
-        
+
         # parse the JSON string to a Python dictionary
         json_data = json.loads(json_data)
 
         if now > json_data["expiry"]:
             store.delete(self.key)
             return {}
-        
+
         return json_data["value"]
 
     def __encode_jwt(self, value, ttl):
@@ -92,7 +90,7 @@ class SnowflakeSession:
             # Create a session object
             with st.spinner("Testing Connection..."):
                 snow = Session.builder.configs(snowflake_credentials).create()
-                
+
                 # test connection
                 res = snow.sql("Select current_account();").collect()
 
@@ -112,21 +110,19 @@ class SnowflakeSession:
 
     def set_context(self, credential_update):
         snowflake_credentials = self.get_credentials()
-        
+
         # get the key and value from the credential_update
         for key, value in credential_update.items():
             # update the value of the key
             snowflake_credentials[key] = value
-        
-        print("from set context: ", snowflake_credentials)
-        
+
         self.__encode_jwt(snowflake_credentials, 3600)
-    
+
     def snowpark_session(self):
         get_credentials = self.__decode_jwt()
         snow = Session.builder.configs(get_credentials).create()
         return snow
-    
+
     def close_session(self):
         store.delete(self.key)
         store.delete("log_status")

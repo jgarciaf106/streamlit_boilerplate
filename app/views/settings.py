@@ -8,7 +8,7 @@ from app.utils.snow_context import SnowContext
 
 # define the content of the view and render it inside the content function
 def toggle_closed():
-    st.session_state["expander_state"] = True
+    st.session_state["expander_state"] = False
 
 
 def credentials(current_credentials):
@@ -17,7 +17,7 @@ def credentials(current_credentials):
     # form to handle initial loginf or fetch existing credentials
     with st.form("credentials_form", clear_on_submit=True):
         if "expander_state" not in st.session_state:
-            st.session_state["expander_state"] = False
+            st.session_state["expander_state"] = True
 
         with st.expander("Credentials", expanded=st.session_state["expander_state"]):
             # set credentials else show existing
@@ -45,17 +45,17 @@ def credentials(current_credentials):
                 st.success("Connection successfull, credentials saved!")
 
                 # close expander
-                if st.session_state["expander_state"] == True:
+                if st.session_state["expander_state"] == False:
                     st.session_state["expander_state"] = False
                     time.sleep(0.05)
-                    st.experimental_rerun()
+                    st.rerun()
             else:
                 st.error("All fields are required!")
 
 
 def context(set_credentials):
     # allow user to be able to change the context
-    
+
     if bool(store.get("log_status")):
         st.divider()
         st.subheader("Snowflake Account Context")
@@ -87,7 +87,6 @@ def context(set_credentials):
 
 
 def content():
-    print("Current Credentials: ", snow_session.get_credentials())
     # get existing credentials
     existing_credentials = snow_session.get_credentials()
     (

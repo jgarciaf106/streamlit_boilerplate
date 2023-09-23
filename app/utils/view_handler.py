@@ -4,20 +4,28 @@ from .store import store
 
 
 class ViewHandler:
-    def __init__(self):
-        self.views = []
-        self.view_names = []
-
-    def add_view(self, title, func, args=None):
-        self.view_names.append(title)
-        self.views.append({"title": title, "function": func, "args": args})
+    def __init__(self, views, logo):
+        self.views = (
+            [view for view in views if view["title"] != "Logout"]
+            if not bool(store.get("log_status"))
+            else [view for view in views]
+        )
+        self.view_names = (
+            [view["title"] for view in views if view["title"] != "Logout"]
+            if not bool(store.get("log_status"))
+            else [view["title"] for view in views]
+        )
+        self.view_icons = [view["icon"] for view in views]
+        self.logo = logo
 
     def view_selected(self, title, view_names, icons=None):
         with st.sidebar:
             # Create buttons for each view
-            st.image("app/assets/logo.png")
-            
-            default_index_val = st.session_state.get('view_idx', view_names[0])
+            st.image(self.logo)
+
+            default_index_val = st.session_state.get("view_idx", view_names[0])
+            if default_index_val == "Logout":
+                default_index_val = view_names[0]
             default_index = view_names.index(default_index_val)
 
             selected = option_menu(
@@ -26,13 +34,18 @@ class ViewHandler:
                 options=view_names,
                 icons=icons,
                 default_index=default_index,
-                key='view_idx'
+                key="view_idx",
             )
+            
+            if selected == "Logout":
+                selected = view_names[0]
+                
             # TODO: show the information on the info box
             if bool(store.get("log_status")):
                 st.divider()
-                
-                st.info("""
+
+                st.info(
+                    """
                         ROLE: {0}  
                         
                         DATABASE: {1}
@@ -41,8 +54,10 @@ class ViewHandler:
                         
                         WAREHOUSE: {3}
                         
-                        """.format(1,2,3,4))
-            
+                        """.format(
+                        1, 2, 3, 4
+                    )
+                )
         return selected
 
     def run(self):
@@ -61,12 +76,15 @@ class ViewHandler:
         selected_view = self.view_selected(
             title="Navigation",
             view_names=self.view_names,
-            icons=["house", "gear", "power"],
+            icons=self.view_icons,
         )
-        
+
         st.experimental_set_query_params(view=selected_view)
 
         # run the selected app
         for view in self.views:
             if view["title"] == selected_view:
                 view["function"]()
+
+
+        #TODO FIx logout
