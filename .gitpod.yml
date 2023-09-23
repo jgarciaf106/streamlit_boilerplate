@@ -16,6 +16,7 @@ tasks:
       python utils/welcome.py
   - command: >
       pipenv run start
+    openMode: split-right
 
 vscode:
   extensions:
