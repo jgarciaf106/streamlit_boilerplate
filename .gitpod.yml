@@ -4,7 +4,7 @@ ports:
   - port: 8501
     onOpen: open-browser
     visibility: public
-  - port: 8502
+  - port: 8501
     onOpen: open-preview
     visibility: public
   - port: 5432
