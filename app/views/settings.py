@@ -52,7 +52,6 @@ def credentials(current_credentials):
             else:
                 st.error("All fields are required!")
 
-
 def context(set_credentials):
     # allow user to be able to change the context
 
@@ -60,28 +59,27 @@ def context(set_credentials):
         st.divider()
         st.subheader("Snowflake Account Context")
 
-        left, center, right = st.columns(3)
+        left, center = st.columns(2)
         snow_context = SnowContext()
 
         with left:
             avail_roles = snow_context.get_roles()
-            role = st.selectbox("Role", ["Switch Role"] + avail_roles)
+            role = st.selectbox("Role", ["Switch Role"] + avail_roles, label_visibility="hidden")
             if role != "Switch Role":
                 snow_session.set_context({"role": role})
 
-        with center:
-            avail_dbs = snow_context.get_databases()
-            database = st.selectbox("Database", ["Switch Database"] + avail_dbs)
-            if database != "Switch Database":
-                snow_session.set_context({"database": database})
-                avail_schemas = snow_context.get_schemas(database)
-                schema = st.selectbox("Schema", ["Switch Schema"] + avail_schemas)
-                if schema != "Switch Database":
-                    snow_session.set_context({"schema": schema})
+                avail_dbs = snow_context.get_databases(role)
+                database = st.selectbox("Database", ["Switch Database"] + avail_dbs, label_visibility="hidden")
+                if database != "Switch Database":
+                    snow_session.set_context({"database": database})
+                    avail_schemas = snow_context.get_schemas(database)
+                    schema = st.selectbox("Schema", ["Switch Schema"] + avail_schemas, label_visibility="hidden")
+                    if schema != "Switch Database":
+                        snow_session.set_context({"schema": schema})
 
-        with right:
+        with center:
             avail_whs = snow_context.get_warehouses()
-            warehouse = st.selectbox("Warehouse", ["Switch Warehouse"] + avail_whs)
+            warehouse = st.selectbox("Warehouse", ["Switch Warehouse"] + avail_whs, label_visibility="hidden")
             if warehouse != "Switch Warehouse":
                 snow_session.set_context({"warehouse": warehouse})
 
