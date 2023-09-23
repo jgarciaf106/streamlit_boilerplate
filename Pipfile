@@ -26,6 +26,7 @@ streamlit-javascript = "*"
 py-scdb = "*"
 streamlit-autorefresh = "*"
 astor = "*"
+pycodestyle = "*"
 
 [dev-packages]
 

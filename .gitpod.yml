@@ -1,0 +1,22 @@
+image:
+  file: .gitpod.Dockerfile
+ports:
+  - port: 8501
+    onOpen: open-browser
+    visibility: public
+  - port: 8502
+    onOpen: open-preview
+    visibility: public
+  - port: 5432
+    onOpen: ignore
+tasks:
+  - init: >
+      pipenv install &&
+      pipenv run init &&
+      python utils/welcome.py
+  - command: >
+      pipenv run start
+
+vscode:
+  extensions:
+    - esbenp.prettier-vscode

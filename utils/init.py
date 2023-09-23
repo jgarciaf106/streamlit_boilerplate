@@ -39,12 +39,12 @@ try:
     with open(".streamlit/config.toml", "w") as configfile:
         configfile.write(
             """[theme]
-                base="dark"
-                primaryColor="#F63366"
-                backgroundColor="#FFFFFF"
-                secondaryBackgroundColor="#F0F2F6"
-                textColor="#262730"
-                font="sans serif"
+base="dark"
+primaryColor="#F63366"
+backgroundColor="#FFFFFF"
+secondaryBackgroundColor="#F0F2F6"
+textColor="#262730"
+font="sans serif"
             """)
         
     print("Configuration file '.streamlit/config.toml' has been created.")

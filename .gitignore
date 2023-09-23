@@ -9,7 +9,7 @@
 !README.md
 !.dockerignore
 !.gitpod.Dockerfile
-!gitpod.yml
+!.gitpod.yml
 !Pipefile
 !.Pipefile.lock
 
