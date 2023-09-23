@@ -1,16 +1,17 @@
 # Ignore all files starting with a dot (.)
 .*
 
-# Ignore Pipfile.lock
-Pipfile.lock
 
 # Track these files (i.e., do NOT ignore them)
 !.gitignore
 !.github
+!ROADMAP.md
 !README.md
 !.dockerignore
 !.gitpod.Dockerfile
 !gitpod.yml
+!Pipefile
+!.Pipefile.lock
 
 # Add any other rules as needed
 db/
